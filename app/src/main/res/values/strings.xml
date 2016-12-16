@@ -1,16 +1,16 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">Stock Hawk</string>
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
 
-    <string name="pref_display_mode_key">displayMode</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
     <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
     <string name="default_stocks_yahoo">YHOO</string>
     <string name="default_stocks_apple">AAPL</string>
@@ -31,5 +31,12 @@
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+
+    <!-- A11y -->
+    <string name="a11y_stock_symbol">Stock Symbol: <xliff:g id="symbol">%1$s</xliff:g></string>
+    <string name="a11y_stock_price">Stock Price: <xliff:g id="price">%1$s</xliff:g></string>
+    <string name="a11y_stock_change">Change in Stock: <xliff:g id="change">%1$s</xliff:g></string>
+    <string name="a11y_FAB">Button to add new stock</string>
+
 
 </resources>

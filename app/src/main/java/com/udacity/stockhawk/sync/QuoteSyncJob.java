@@ -116,6 +116,10 @@ public final class QuoteSyncJob {
         } catch (IOException exception) {
             Timber.e(exception, "Error fetching stock quotes");
         }
+        catch (NullPointerException e){
+            Timber.e(e,"Error fetching stock quotes");
+        }
+
     }
 
     private static void schedulePeriodic(Context context) {
