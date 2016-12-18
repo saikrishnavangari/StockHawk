@@ -1,0 +1,10 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/widget_stock_small"
+    android:minHeight="@dimen/widget_today_default_height"
+    android:minWidth="@dimen/widget_today_default_width"
+    android:previewImage="@drawable/icon"
+    android:minResizeHeight="@dimen/widget_today_resize_height"
+    android:minResizeWidth="@dimen/widget_today_resize_width"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"/>
