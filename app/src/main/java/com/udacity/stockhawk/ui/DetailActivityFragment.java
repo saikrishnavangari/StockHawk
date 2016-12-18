@@ -98,7 +98,7 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
             ArrayList<Float> historyPrice = new ArrayList<>(); // Array data of historical dates in a chronological order
             if (null != history) {
                 String[] str = history.split("\\r?\\n|,");
-                String pattern = "dd/mm/yyyy";
+                String pattern = "dd/MM/yyyy";
                 for (int i = 0; i < str.length - 1; i++) {
                     if (i % 2 == 0) {
                         long dateInMilliseconds = Long.parseLong(str[i]);

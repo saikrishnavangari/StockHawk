@@ -40,6 +40,7 @@
     <string name="empty_forecast_list">No stocks available</string>
     <string name="DetailActivity">DetailActivity</string>
     <string name="title_widget_detail">StockDetails</string>
+    <string name="InvalidStock">No quotes available for the stock</string>
 
 
 </resources>
