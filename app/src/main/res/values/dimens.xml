@@ -1,3 +1,8 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="widget_margin">0dp</dimen>
+    <dimen name="widget_today_default_height">40dp</dimen>
+    <dimen name="widget_today_default_width">40dp</dimen>
+    <dimen name="widget_today_resize_height">80dp</dimen>
+    <dimen name="widget_today_resize_width">80dp</dimen>
 </resources>

@@ -37,6 +37,8 @@
     <string name="a11y_stock_price">Stock Price: <xliff:g id="price">%1$s</xliff:g></string>
     <string name="a11y_stock_change">Change in Stock: <xliff:g id="change">%1$s</xliff:g></string>
     <string name="a11y_FAB">Button to add new stock</string>
+    <string name="empty_forecast_list">No stocks available</string>
+    <string name="DetailActivity">DetailActivity</string>
 
 
 </resources>
