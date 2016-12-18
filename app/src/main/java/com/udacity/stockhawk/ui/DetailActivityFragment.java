@@ -5,17 +5,23 @@ import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.EntryXComparator;
+import com.udacity.stockhawk.MyXAxisValueFormatter;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.Utilities;
 import com.udacity.stockhawk.data.Contract.Quote;
@@ -31,13 +37,15 @@ import butterknife.ButterKnife;
  * Created by krrish on 18/12/2016.
  */
 
-public class DetailActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class DetailActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static int LOADER_ID=1;
+    public final static String Symbol = "SYMBOL";
+    private static String msymbol;
+    private static int LOADER_ID = 1;
     private static Uri mUri;
-    String msymbol="AAPL";
     @BindView(R.id.chart)
     LineChart chart;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +54,23 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         mUri= Quote.makeUriForStock(msymbol);
-        View view=inflater.inflate(R.layout.detailview_fragment,container,false);
-        ButterKnife.bind(this,view);
-     return view;
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            msymbol = arguments.getString(Symbol);
+        }
+        Log.d("symbol", msymbol);
+        mUri = Quote.makeUriForStock(msymbol);
+        View view = inflater.inflate(R.layout.detailview_fragment, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(LOADER_ID,null,this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
         super.onActivityCreated(savedInstanceState);
+
+
     }
 
     @Override
@@ -79,21 +94,19 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
         if (cursor != null && cursor.moveToFirst()) {
 
             String history = cursor.getString(Quote.POSITION_HISTORY);
-            ArrayList<Float> historyDate = new ArrayList<>(); // Array data of historical dates
+            ArrayList<String> historyDate = new ArrayList<>(); // Array data of historical dates
             ArrayList<Float> historyPrice = new ArrayList<>(); // Array data of historical dates in a chronological order
-            ArrayList<Float> foramttedHIstoryPrice = new ArrayList<>(); // Array data of historical prices
-            ArrayList<Float> formattedHistoryPrice = new ArrayList<>(); // Array data of historical prices in a chronological order
             if (null != history) {
                 String[] str = history.split("\\r?\\n|,");
                 String pattern = "dd/mm/yyyy";
                 for (int i = 0; i < str.length - 1; i++) {
                     if (i % 2 == 0) {
                         long dateInMilliseconds = Long.parseLong(str[i]);
-                        historyDate.add(Float.valueOf((Utilities.getDate(dateInMilliseconds, pattern))));
-                        Collections.sort(historyDate);
+                        historyDate.add((Utilities.getDate(dateInMilliseconds, pattern)));
+
                     } else {
                         historyPrice.add(Float.valueOf(str[i]));
-                        Collections.sort(historyPrice);
+
 
                     }
                 }
@@ -101,24 +114,40 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
             // Plot the graph
             plotGraph(historyDate, historyPrice);
         }
+        cursor.close();
     }
 
 
-
-    void plotGraph(ArrayList<Float> dates, ArrayList<Float> prices){
+    void plotGraph(ArrayList<String> dates, ArrayList<Float> prices) {
+        for (Float i : prices)
+            Log.d("symbol values", i.toString());
         List<Entry> entries = new ArrayList<Entry>();
-        for(int i=0;i<dates.size();i++) {
+        String[] datesArray = new String[dates.size()];
+        for (int i = 0; i < prices.size(); i++) {
             // turn your data into Entry objects
-            entries.add(new Entry(dates.get(i),prices.get(i)));
+            entries.add(new Entry(i, prices.get(i)));
         }
-        LineDataSet dataSet = new LineDataSet(entries, "msymbol"); // add entries to dataset
-        dataSet.setColor(R.color.white);
-        dataSet.setValueTextColor(R.color.colorPrimary);
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.invalidate();
+        Collections.sort(entries, new EntryXComparator());
+        LineDataSet stockPrices = new LineDataSet(entries, msymbol); // add entries to dataset
+        stockPrices.setColor(R.color.white);
+        XAxis xAxis = chart.getXAxis();
+        MyXAxisValueFormatter formatter = new MyXAxisValueFormatter(dates.toArray(datesArray));
+        xAxis.setValueFormatter(formatter);
+        stockPrices.setValueTextColor(R.color.colorPrimary);
+        List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        dataSets.add(stockPrices);
+        LineData data = new LineData(dataSets);
+        chart.setData(data);
+        chartSettings();
 
     }
+
+    void chartSettings() {
+        chart.setBackgroundColor(Color.WHITE);
+        chart.setBorderColor(Color.BLACK);
+        chart.invalidate();
+    }
+
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 

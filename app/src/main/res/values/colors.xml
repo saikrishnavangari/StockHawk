@@ -10,6 +10,7 @@
     <color name="activated">#a31653</color>
     <color name="white">#ffffff</color>
     <color name="primaryLight">#0891f2</color>
+    <color name="black">#2e2e35</color>
 
 
 </resources>

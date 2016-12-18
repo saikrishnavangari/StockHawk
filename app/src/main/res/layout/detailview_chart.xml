@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_container"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <fragment android:name="com.udacity.stockhawk.ui.DetailActivityFragment"
-        android:id="@+id/Detail_fragment"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     </FrameLayout>

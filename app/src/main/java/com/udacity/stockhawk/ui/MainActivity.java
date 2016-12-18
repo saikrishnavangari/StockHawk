@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler {
 
-    public final static String EXTRA_SYMBOL="symbol";
     private static final int STOCK_LOADER = 0;
     @BindView(R.id.recycler_view)
     RecyclerView stockRecyclerView;
@@ -45,8 +44,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onClick(String symbol) {
-        Intent intent=new Intent(this, DetailActivity.class);
-       startActivity(intent);
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivityFragment.Symbol, symbol);
+        startActivity(intent);
     }
 
     @Override

@@ -39,6 +39,7 @@
     <string name="a11y_FAB">Button to add new stock</string>
     <string name="empty_forecast_list">No stocks available</string>
     <string name="DetailActivity">DetailActivity</string>
+    <string name="title_widget_detail">StockDetails</string>
 
 
 </resources>
