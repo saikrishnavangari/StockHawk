@@ -95,6 +95,9 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                 } else {
                     views.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_red);
                 }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                    setRemoteContentDescription(views, getString(R.string.a11y_widget));
+                }
 
                 dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
                 dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
