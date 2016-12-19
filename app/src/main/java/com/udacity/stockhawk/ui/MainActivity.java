@@ -122,16 +122,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (symbol != null && !symbol.isEmpty()) {
 
             if (networkUp()) {
-                swipeRefreshLayout.setRefreshing(true);
+
             } else {
                 String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
-
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
+            symbol=(symbol.replaceAll("[^a-zA-Z]+","")).trim();
+            if (!PrefUtils.stockExists(this, symbol.toUpperCase())) {
+                swipeRefreshLayout.setRefreshing(true);
+                PrefUtils.addStock(this, symbol);
+                QuoteSyncJob.syncImmediately(this);
+            } else
+                Toast.makeText(this, "stock already exists", Toast.LENGTH_LONG).show();
         }
-    }
+        }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

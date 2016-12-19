@@ -88,4 +88,8 @@ public final class PrefUtils {
         editor.apply();
     }
 
+    public static boolean stockExists(Context context, String symbol) {
+        Set<String> stocks = getStocks(context);
+        return stocks.contains(symbol);
+    }
 }

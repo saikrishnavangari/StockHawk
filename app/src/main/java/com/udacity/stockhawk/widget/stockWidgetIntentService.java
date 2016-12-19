@@ -72,7 +72,7 @@ public class stockWidgetIntentService extends IntentService {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                     setRemoteContentDescription(views, description);
                 }
-                views.setImageViewResource(R.id.widget_icon,R.drawable.icon);
+                views.setImageViewResource(R.id.widget_icon, R.drawable.widget_icon);
                 views.setTextViewText(R.id.widget_symbol_stock, stockdata);
 
                 // Create an Intent to launch MainActivity
