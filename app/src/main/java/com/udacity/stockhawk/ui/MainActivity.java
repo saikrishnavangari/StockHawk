@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
-
+            symbol=(symbol.replaceAll("[^a-zA-Z]+","")).trim();
             PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
         }
