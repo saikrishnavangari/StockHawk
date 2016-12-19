@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 PrefUtils.addStock(this, symbol);
                 QuoteSyncJob.syncImmediately(this);
             } else
-                Toast.makeText(this, "stock already exists", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.stock_exists, Toast.LENGTH_LONG).show();
         }
         }
 

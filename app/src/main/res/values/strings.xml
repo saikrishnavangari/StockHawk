@@ -42,6 +42,7 @@
     <string name="DetailActivity">DetailActivity</string>
     <string name="title_widget_detail">StockDetails</string>
     <string name="InvalidStock">No quotes available for the stock</string>
+    <string name="stock_exists">stock already exists</string>
 
 
 </resources>
